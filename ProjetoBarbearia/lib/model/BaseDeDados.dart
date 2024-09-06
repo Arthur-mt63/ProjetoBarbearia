@@ -16,174 +16,174 @@ class Bancodedados {
 
   Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
-    final path = join(await getDatabasesPath(), 'appBlack_database.db');
+    final path = join(dbPath, 'appBlack_database.db');
 
     return openDatabase(
       path,
-      version: 2,
+      version: 1,
       onCreate: _onCreate,
     );
   }
 
   Future _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE Usuario (
-        idUsuario INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome VARCHAR(50) NOT NULL,
-        cpf VARCHAR(14) NOT NULL,
-        dataNasc DATE NOT NULL,
-        tipoUsuario VARCHAR(20) NOT NULL,
-        usuario VARCHAR(10) NOT NULL,
-        emailUsuario VARCHAR(100) NOT NULL,
-        senhaUsuario VARCHAR(255) NOT NULL,
-        bairro VARCHAR(15) NOT NULL,
-        cep VARCHAR(9) NOT NULL,
-        numero VARCHAR(10),
-        complemento VARCHAR(100)
-      )
-    ''');
+    CREATE TABLE Usuario (
+      idUsuario INTEGER PRIMARY KEY AUTOINCREMENT,
+      nome TEXT,
+      cpf TEXT,
+      dataNasc DATE,
+      tipoUsuario TEXT,
+      usuario TEXT,
+      emailUsuario TEXT,
+      senhaUsuario TEXT,
+      bairro TEXT,
+      cep TEXT,
+      numero TEXT,
+      complemento TEXT
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE Barbeiro (
-        idBarbeiro INTEGER PRIMARY KEY AUTOINCREMENT,
-        idUsuario INTEGER,
-        FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
-      )
-    ''');
+    CREATE TABLE Barbeiro (
+      idBarbeiro INTEGER PRIMARY KEY AUTOINCREMENT,
+      idUsuario INTEGER,
+      FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE Cliente (
-        idCliente INTEGER PRIMARY KEY AUTOINCREMENT,
-        idUsuarioCli INTEGER,
-        FOREIGN KEY (idUsuarioCli) REFERENCES Usuario(idUsuario)
-      )
-    ''');
+    CREATE TABLE Cliente (
+      idCliente INTEGER PRIMARY KEY AUTOINCREMENT,
+      idUsuarioCli INTEGER,
+      FOREIGN KEY (idUsuarioCli) REFERENCES Usuario(idUsuario)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE Barbearia (
-        idBarbearia INTEGER PRIMARY KEY AUTOINCREMENT,
-        idBarbeiroPro INTEGER,
-        FOREIGN KEY (idBarbeiroPro) REFERENCES Barbeiro(idBarbeiro),
-        nomeBarbearia VARCHAR(20) NOT NULL,
-        bairro VARCHAR(15) NOT NULL,
-        cep VARCHAR(9) NOT NULL,
-        rua VARCHAR(20) NOT NULL,
-        numero VARCHAR(10),
-        complemento VARCHAR(100)
-      )
-    ''');
+    CREATE TABLE Barbearia (
+      idBarbearia INTEGER PRIMARY KEY AUTOINCREMENT,
+      idBarbeiroPro INTEGER,
+      nomeBarbearia TEXT,
+      bairro TEXT,
+      cep TEXT,
+      rua TEXT,
+      numero TEXT,
+      complemento TEXT,
+      FOREIGN KEY (idBarbeiroPro) REFERENCES Barbeiro(idBarbeiro)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE contratoBarbeiro (
-        idContratoBarbeiro INTEGER PRIMARY KEY AUTOINCREMENT,
-        idBarbeiro INTEGER,
-        FOREIGN KEY (idBarbeiro) REFERENCES Barbeiro(idBarbeiro) NOT NULL,
-        idBarbearia INTEGER,
-        FOREIGN KEY (idBarbearia) REFERENCES Barbearia(idBarbearia) NOT NULL
-      ),
-    ''');
+    CREATE TABLE contratoBarbeiro (
+      idContratoBarbeiro INTEGER PRIMARY KEY AUTOINCREMENT,
+      idBarbeiro INTEGER,
+      idBarbearia INTEGER,
+      FOREIGN KEY (idBarbeiro) REFERENCES Barbeiro(idBarbeiro),
+      FOREIGN KEY (idBarbearia) REFERENCES Barbearia(idBarbearia)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE servicoBarbeiro (
-        idServico INTEGER PRIMARY KEY AUTOINCREMENT,
-        idBarbeiro INTEGER,
-        FOREIGN KEY (idBarbeiro) REFERENCES Barbeiro(idBarbeiro) NOT NULL,
-        nomeServico VARCHAR(50) NOT NULL,
-        foto VARCHAR(255),
-        valor FLOAT NOT NULL
-      ),
-    ''');
+    CREATE TABLE servicoBarbeiro (
+      idServico INTEGER PRIMARY KEY AUTOINCREMENT,
+      idBarbeiro INTEGER,
+      nomeServico TEXT,
+      foto TEXT,
+      valor REAL,
+      FOREIGN KEY (idBarbeiro) REFERENCES Barbeiro(idBarbeiro)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE Repositorio (
-        idRepositorio INTEGER PRIMARY KEY AUTOINCREMENT,
-        idBarbeiro INTEGER,
-        FOREIGN KEY (idBarbeiro) REFERENCES Barbeiro(idBarbeiro) NOT NULL
-      ),
-    ''');
+    CREATE TABLE Repositorio (
+      idRepositorio INTEGER PRIMARY KEY AUTOINCREMENT,
+      idBarbeiro INTEGER NOT NULL,
+      FOREIGN KEY (idBarbeiro) REFERENCES Barbeiro(idBarbeiro)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE Post (
-        idPost INTEGER PRIMARY KEY AUTOINCREMENT,
-        idRepositorio INTEGER,
-        FOREIGN KEY (idRepositorio) REFERENCES Repositorio(idRepositorio) NOT NULL,
-        imagemUrl VARCHAR(255),
-        vidioUrl VARCHAR(255),
-        descricaoPost VARCHAR(200),
-        dataPost DATE NOT NULL
-      ),
-    ''');
+    CREATE TABLE Post (
+      idPost INTEGER PRIMARY KEY AUTOINCREMENT,
+      idRepositorio INTEGER,
+      imagemUrl TEXT,
+      vidioUrl TEXT,
+      descricaoPost TEXT,
+      dataPost TEXT,
+      FOREIGN KEY (idRepositorio) REFERENCES Repositorio(idRepositorio)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE Loja (
-        idLoja INTEGER PRIMARY KEY AUTOINCREMENT,
-        idBarbearia INTEGER,
-        FOREIGN KEY (idBarbearia) REFERENCES Barbearia(idBarbearia) NOT NULL
-      ),
-    ''');
+    CREATE TABLE Loja (
+      idLoja INTEGER PRIMARY KEY AUTOINCREMENT,
+      idBarbearia INTEGER,
+      FOREIGN KEY (idBarbearia) REFERENCES Barbearia(idBarbearia)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE Produto (
-        idProduto INTEGER PRIMARY KEY AUTOINCREMENT,
-        nomeProduto VARCHAR(50) NOT NULL,
-        precoUnitario FLOAT NOT NULL,
-        quantProduto INTEGER,
-        descricaoProduto VARCHAR(100)
-      ),
-    ''');
+    CREATE TABLE Produto (
+      idProduto INTEGER PRIMARY KEY AUTOINCREMENT,
+      nomeProduto TEXT,
+      precoUnitario REAL,
+      quantProduto INTEGER,
+      descricaoProduto TEXT
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE ProdutoLoja (
-        idProdutoLoja INTEGER PRIMARY KEY AUTOINCREMENT,
-        idLoja INTEGER,
-        FOREIGN KEY (idLoja) REFERENCES Loja(idLoja) NOT NULL,
-        idProduto INTEGER,
-        FOREIGN KEY (idProduto) REFERENCES Produto(idProduto) NOT NULL
-      ),
-    ''');
+    CREATE TABLE ProdutoLoja (
+      idProdutoLoja INTEGER PRIMARY KEY AUTOINCREMENT,
+      idLoja INTEGER,
+      idProduto INTEGER,
+      FOREIGN KEY (idLoja) REFERENCES Loja(idLoja),
+      FOREIGN KEY (idProduto) REFERENCES Produto(idProduto)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE Venda (
-        idVenda INTEGER PRIMARY KEY AUTOINCREMENT,
-        idCliente INTEGER,
-        FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente) NOT NULL,
-        dataVenda DATE NOT NULL,
-        horaVenda TIME NOT NULL
-      ),
-    ''');
+    CREATE TABLE Venda (
+      idVenda INTEGER PRIMARY KEY AUTOINCREMENT,
+      idCliente INTEGER,
+      dataVenda TEXT,
+      horaVenda TEXT,
+      FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE ProdutoVenda (
-        idProdutoVenda INTEGER PRIMARY KEY AUTOINCREMENT,
-        idProduto INTEGER,
-        FOREIGN KEY (idProduto) REFERENCES Produto(idProduto) NOT NULL,
-        idVenda INTEGER,
-        FOREIGN KEY (idVenda) REFERENCES Venda(idVenda) NOT NULL
-      ),
-    ''');
+    CREATE TABLE ProdutoVenda (
+      idProdutoVenda INTEGER PRIMARY KEY AUTOINCREMENT,
+      idProduto INTEGER,
+      idVenda INTEGER,
+      FOREIGN KEY (idProduto) REFERENCES Produto(idProduto),
+      FOREIGN KEY (idVenda) REFERENCES Venda(idVenda)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE Agendamento (
-        idAgendamento INTEGER PRIMARY KEY AUTOINCREMENT,
-        idCliente INTEGER,
-        FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente) NOT NULL,
-        dataAgen DATE NOT NULL,
-        valorTotal FLOAT NOT NULL
-      ),
-    ''');
+    CREATE TABLE Agendamento (
+      idAgendamento INTEGER PRIMARY KEY AUTOINCREMENT,
+      idCliente INTEGER,
+      dataAgen TEXT,
+      valorTotal REAL,
+      FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente)
+    )
+  ''');
 
     await db.execute('''
-      CREATE TABLE ServicoAgendamento (
-        idServicoAgen INTEGER PRIMARY KEY AUTOINCREMENT,
-        idServico INTEGER,
-        FOREIGN KEY (idServico) REFERENCES servicoBarbeiro(idServico) NOT NULL,
-        idAgendamento INTEGER,
-        FOREIGN KEY (idAgendamento) REFERENCES Agendamento(idAgendamento) NOT NULL,
-        dataServicoAgend DATE NOT NULL,
-        horaServico TIME NOT NULL,
-        valorServico FLOAT NOT NULL,
-        avaliacao VARCHAR(200)
-      ),
-    ''');
+    CREATE TABLE ServicoAgendamento (
+      idServicoAgen INTEGER PRIMARY KEY AUTOINCREMENT,
+      idServico INTEGER,
+      idAgendamento INTEGER,
+      dataServicoAgend TEXT,
+      horaServico TEXT,
+      valorServico REAL,
+      avaliacao TEXT,
+      FOREIGN KEY (idServico) REFERENCES servicoBarbeiro(idServico),
+      FOREIGN KEY (idAgendamento) REFERENCES Agendamento(idAgendamento)
+    )
+  ''');
   }
 }

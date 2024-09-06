@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:app/view/AdicionarProduto.dart';
 import 'package:app/view/Financeiro_bar.dart';
-import 'package:app/view/PerfilBarbeiro.dart'; // Importando a tela de perfil do barbeiro
-import 'package:app/view/Produtoclin.dart';
+import 'package:app/view/PerfilBarbeiro.dart';
+import 'package:app/view/cria_post.dart';
+import 'package:app/view/ultimos_agendamentos.dart';
 
 class IniBarbeiro extends StatelessWidget {
   @override
@@ -33,6 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
     HomePageContent(), // Página principal
     AdicionarProduto(), // Tela de adicionar produto
     FinanceiroBar(), // Tela de financeiro
+    PostScreen(), // Tela para criar post
+    UltimosAgendamentosPage(), // Tela de últimos agendamentos
     PerfilBarbeiroPage(), // Tela de perfil do barbeiro
   ];
 
@@ -65,6 +68,14 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.monetization_on),
             label: 'Financeiro',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.post_add),
+            label: 'Criar Post',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Últimos Agendamentos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

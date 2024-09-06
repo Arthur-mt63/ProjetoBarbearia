@@ -1,15 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:app/view/Agendamento_clin.dart';
-import 'package:app/view/CodigoDeRedef.dart';
-import 'package:app/view/Conta.dart';
-import 'package:app/view/EscolhaPerfil.dart';
-import 'package:app/view/Financeiro_bar.dart';
+
+import 'package:app/view/Escolha.dart';
+
 import 'package:app/view/Ini_cliente.dart';
 import 'package:app/view/LoginView.dart';
 import 'package:app/view/Perfil_clin.dart';
 import 'package:app/view/Produtoclin.dart';
-import 'package:app/view/VerificationScreen.dart';
-import 'package:app/view/ResetPassword.dart';
-import 'package:flutter/material.dart';
+import 'package:app/view/editar_perfil_bar.dart';
+import 'package:app/view/editar_perfil_cli.dart';
+import 'package:app/view/tela_buscar_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,18 +44,16 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/login', // Rota inicial do aplicativo
         routes: {
-          '/login': (context) => LoginView(), // Tela de Login
-          '/Escolha': (context) => EscolhaPerfil(), // Tela de Escolha de Perfil
-          '/Conta': (context) => Conta(), // Tela de Criação de Conta
+          '/login': (context) => Loginview(), // Tela de Login
+          '/Escolha': (context) => EscolhaTela(), // Tela de Escolha de Perfil
           '/home': (context) => IniCliente(), // Tela Inicial do Cliente
           '/products': (context) =>
               Produtoclin(), // Tela de Pesquisa de Produtos
           '/schedule': (context) => Agendamento_clin(), // Tela de Agendamento
           '/profile': (context) => Perfil_clin(), // Tela de Perfil do Cliente
-          '/financeiro': (context) => FinanceiroBar(),
-          '/ResetPassword': (context) => ResetPassword(),
-          '/VerificationScreen': (context) => VerificationScreen(),
-          '/CodigoDeRedef': (context) => CodigoDeRedef(),
+          '/buscar': (context) => BarbeariasScreen(),
+          '/editacli': (context) => EditarPerfilPage(),
+          '/editbar': (context) => EditarPerfilBarbeiroPage(),
         } // Tela FinanceiroBarbearia
         );
   }

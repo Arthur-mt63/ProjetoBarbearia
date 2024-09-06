@@ -183,3 +183,19 @@ class BarberShopItem extends StatelessWidget {
     );
   }
 }
+
+// Tela de Agendar Barbearia (nova página)
+class AgendarBarbeariaPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Agendar Barbearia'),
+        backgroundColor: Colors.blue,
+      ),
+      body: Center(
+        child: Text('Aqui você pode agendar um horário na barbearia'),
+      ),
+    );
+  }
+}

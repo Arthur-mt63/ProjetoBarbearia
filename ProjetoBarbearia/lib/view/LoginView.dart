@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-class LoginView extends StatelessWidget {
+class Loginview extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Loginview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,14 +91,14 @@ class LoginView extends StatelessWidget {
               ),
               SizedBox(height: 16),
 
-              // Links de "Forgot Password?" e "Sign Up"
+              // Links de "Esquecer Senha?" e "Cadastrar"
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context,
-                          '/ResetPassword'); // Ação ao clicar em "Forgot Password?"
+                          '/ResetPassword'); // Ação ao clicar em "Esquecer Senha?"
                     },
                     child: Text(
                       'Esquecer Senha?',

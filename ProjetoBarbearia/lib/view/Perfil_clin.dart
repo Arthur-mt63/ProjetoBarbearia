@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/view/editar_perfil_cli.dart';
 
 class Perfil_clin extends StatefulWidget {
   @override
@@ -19,7 +20,10 @@ class _PerfilScreenState extends State<Perfil_clin> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => EditarPerfilPage()),
+            );
           },
         ),
       ),
@@ -59,7 +63,7 @@ class _PerfilScreenState extends State<Perfil_clin> {
               ElevatedButton(
                 onPressed: () {
                   // Lógica para editar conta
-                  Navigator.pushNamed(context, '/editProfile');
+                  Navigator.pushNamed(context, '/editacli');
                 },
                 child: Text('Editar Conta'),
               ),
@@ -72,7 +76,8 @@ class _PerfilScreenState extends State<Perfil_clin> {
                     builder: (context) {
                       return AlertDialog(
                         title: Text('Confirmar Exclusão'),
-                        content: Text('Você tem certeza que deseja excluir sua conta?'),
+                        content: Text(
+                            'Você tem certeza que deseja excluir sua conta?'),
                         actions: <Widget>[
                           TextButton(
                             child: Text('Cancelar'),
