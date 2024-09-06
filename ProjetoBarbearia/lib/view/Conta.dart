@@ -3,7 +3,7 @@ import 'package:app/control/userController.dart';
 import 'package:app/model/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:app/view/LoginView.dart';
+import 'package:app/view/LoginScreen.dart';
 
 class Conta extends StatelessWidget {
   @override

@@ -4,7 +4,7 @@ import 'package:app/view/Agendamento_clin.dart';
 import 'package:app/view/Escolha.dart';
 
 import 'package:app/view/Ini_cliente.dart';
-import 'package:app/view/LoginView.dart';
+import 'package:app/view/LoginScreen.dart';
 import 'package:app/view/Perfil_clin.dart';
 import 'package:app/view/Produtoclin.dart';
 import 'package:app/view/editar_perfil_bar.dart';
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/login', // Rota inicial do aplicativo
         routes: {
-          '/login': (context) => Loginview(), // Tela de Login
+          '/login': (context) => LoginScreen(), // Tela de Login
           '/Escolha': (context) => EscolhaTela(), // Tela de Escolha de Perfil
           '/home': (context) => IniCliente(), // Tela Inicial do Cliente
           '/products': (context) =>
