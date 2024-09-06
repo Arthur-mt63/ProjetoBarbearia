@@ -1,49 +1,37 @@
-
 class Barbearia {
   int? idBarbearia;
-  int proprietario;
   String nomeBarbearia;
-  String bairro;
-  String cep;
-  String rua;
-  String numero;
-  String complemento;
+  String nomeDono;
+  String emailBar;
+  String senhaBar;
 
-  Barbearia(
-      {this.idBarbearia,
-      required this.proprietario,
-      required this.nomeBarbearia,
-      required this.bairro,
-      required this.cep,
-      required this.rua,
-      required this.numero,
-      required this.complemento});
+  Barbearia({
+    this.idBarbearia,
+    required this.nomeBarbearia,
+    required this.nomeDono,
+    required this.emailBar,
+    required this.senhaBar,
+  });
 
-  // Método toMap para converter o objeto Barbearia em um Map
+  // Converte a instância da classe para um Map<String, dynamic>
   Map<String, dynamic> toMap() {
     return {
       'idBarbearia': idBarbearia,
-      'proprietario': proprietario, // Assuming Barbeiro has a toMap method
       'nomeBarbearia': nomeBarbearia,
-      'bairro': bairro,
-      'cep': cep,
-      'rua': rua,
-      'numero': numero,
-      'complemento': complemento,
+      'nomeDono': nomeDono,
+      'emailBar': emailBar,
+      'senhaBar': senhaBar,
     };
   }
 
-  // Método factory fromMap para criar um objeto Barbearia a partir de um Map
+  // Cria uma instância da classe a partir de um Map<String, dynamic>
   factory Barbearia.fromMap(Map<String, dynamic> map) {
     return Barbearia(
       idBarbearia: map['idBarbearia'] as int?,
-      proprietario: map['proprietario'] as int,
       nomeBarbearia: map['nomeBarbearia'] as String,
-      bairro: map['bairro'] as String,
-      cep: map['cep'] as String,
-      rua: map['rua'] as String,
-      numero: map['numero'] as String,
-      complemento: map['complemento'] as String,
+      nomeDono: map['nomeDono'] as String,
+      emailBar: map['emailBar'] as String,
+      senhaBar: map['senhaBar'] as String,
     );
-  }    
+  }
 }

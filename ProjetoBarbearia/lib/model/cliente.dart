@@ -1,6 +1,5 @@
-
 class Cliente {
-  final int? idCliente;
+  int? idCliente;
   String nomeCliente;
   String cpf;
   DateTime dataNasc;
@@ -20,17 +19,16 @@ class Cliente {
     this.telefone,
   });
 
-
-   // Método para converter o objeto Cliente em um Map<String, dynamic>
+  // Método para converter o objeto Cliente em um Map<String, dynamic>
   Map<String, dynamic> toMap() {
     return {
       'idCliente': idCliente,
-      'nomeCliente': nomeCliente,
+      'nomeCli': nomeCliente,
       'cpf': cpf,
       'dataNasc': dataNasc.toIso8601String(),
       'usuario': usuario,
-      'emailUsuario': emailUsuario,
-      'senhaUsuario': senhaUsuario,
+      'emailCli': emailUsuario,
+      'senhaCli': senhaUsuario,
       'telefone': telefone,
     };
   }
@@ -46,17 +44,14 @@ class Cliente {
   factory Cliente.fromMap(Map<String, dynamic> map) {
     return Cliente(
       idCliente: map['idCliente'] as int?,
-      nomeCliente: map['nomeCliente'] as String,
+      nomeCliente: map['nomeCli'] as String,
       cpf: map['cpf'] as String,
       dataNasc: DateTime.parse(map['dataNasc'] as String),
       usuario: map['usuario'] as String,
-      emailUsuario: map['emailUsuario'] as String,
-      senhaUsuario: map['senhaUsuario'] as String,
+      emailUsuario: map['emailCli'] as String,
+      senhaUsuario: map['senhaCli'] as String,
       telefone: map['telefone'] as String?,
     );
   }
 
-
-
-  
 }

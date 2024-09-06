@@ -32,7 +32,7 @@ class Clientecontroller {
   }
 
   //listar usuario
-  Future<List<Cliente>> listarUsuario() async {
+  Future<List<Cliente>> listarCliente() async {
     final db = await bancodedados.database;
 
     List<Map<String, dynamic>> listaUsuario = await db.query('Cliente');
@@ -48,7 +48,7 @@ class Clientecontroller {
 
     // Realizar a consulta para procurar o usuário pelo CPF
     final List<Map<String, dynamic>> resultado = await db.query(
-      'Usuario',
+      'Cliente',
       where: 'cpf = ?',
       whereArgs: [cpf],
     );
@@ -58,5 +58,42 @@ class Clientecontroller {
     } else {
       return null;
     }
+  }
+
+  // Realizar a consulta para procurar o usuário pelo usuario
+  Future<Cliente?> pesquisarUsuario(String usuario) async{
+    final db = await bancodedados.database;
+
+     final List<Map<String, dynamic>> resultado = await db.query(
+      'Cliente',
+      where: 'usuario = ?',
+      whereArgs: [usuario],
+    );
+
+    if (resultado.isNotEmpty) {
+      return Cliente.fromMap(resultado.first);
+    } else {
+      return null;
+    }
+
+  }
+
+
+    // Realizar a consulta para procurar o usuário pelo CPF
+  Future<Cliente?> pesquisarEmail (String email) async{
+    final db = await bancodedados.database;
+
+     final List<Map<String, dynamic>> resultado = await db.query(
+      'Cliente',
+      where: 'emailCli = ?',
+      whereArgs: [email],
+    );
+
+    if (resultado.isNotEmpty) {
+      return Cliente.fromMap(resultado.first);
+    } else {
+      return null;
+    }
+
   }
 }

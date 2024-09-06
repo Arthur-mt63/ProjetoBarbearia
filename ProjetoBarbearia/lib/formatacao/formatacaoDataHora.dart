@@ -4,7 +4,7 @@ class Formatacaodatahora {
   DateTime now = DateTime.now();
 
   // Formatação de data e hora
-  String formataData(DateTime data) {
+  static String datformataData(DateTime data) {
     return DateFormat('dd/MM/yyyy').format(data);
   }
 

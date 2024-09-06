@@ -1,15 +1,15 @@
-/*import 'package:app/control/clienteController.dart';
-import 'package:app/modeloTest/usuario.dart';
+import 'package:app/control/clienteController.dart';
+import 'package:app/control/controller/clienteControl.dart';
+import 'package:app/model/cliente.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Certifique-se de importar o intl
-import 'package:app/formatacao/formatacaoDataHora.dart';
+import 'package:intl/intl.dart'; // Certifique-se de importar o intl para manipulação de datas
 
-class CadastroUsuario extends StatefulWidget {
+class CadastroClienteScreen extends StatefulWidget {
   @override
-  _CadastroUsuarioScreenState createState() => _CadastroUsuarioScreenState();
+  _CadastroClienteScreenState createState() => _CadastroClienteScreenState();
 }
 
-class _CadastroUsuarioScreenState extends State<CadastroUsuario> {
+class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
   final _formKey = GlobalKey<FormState>();
 
   // Controladores para os campos de texto
@@ -21,10 +21,6 @@ class _CadastroUsuarioScreenState extends State<CadastroUsuario> {
   final _telefoneController = TextEditingController();
 
   DateTime? _dataNasc;
-  TipoUsuario _tipoUsuario = TipoUsuario.Cliente;
-
-  // Instância da classe Formatacaodatahora
-  final _formatoData = Formatacaodatahora();
 
   // Função para selecionar a data de nascimento
   Future<void> _selectDate(BuildContext context) async {
@@ -43,44 +39,59 @@ class _CadastroUsuarioScreenState extends State<CadastroUsuario> {
 
   // Função para processar o formulário
   Future<void> _processarFormulario() async {
-    try{
+    try {
       if (_formKey.currentState?.validate() ?? false) {
-        UsuarioDao dao = UsuarioDao();
-        // Criação do usuário
-        final usuario = Usuario(
-        nomeUsuario: _nomeController.text,
-        cpf: _cpfController.text,
-        dataNasc: _dataNasc ?? DateTime.now(),
-        tipoUsuario: _tipoUsuario,
-        usuario: _usuarioController.text,
-        emailUsuario: _emailController.text,
-        senhaUsuario: _senhaController.text,
-        telefone: _telefoneController.text);
+        //verificar o nome Usuario
+        Cliente? cliente = await Clientecontrol.verificarSeUsuarioExiste(_usuarioController.text);
 
-        int idUsuario = await dao.addUsuario(usuario);
-        
-        Usuario.cadastrarCliOuBarb(usuario, idUsuario);
-        print(usuario.tipoUsuario);
-        print(usuario.toMap());
+        if (cliente == null) { //if para não cadastrar usuario ja cadastrado por outra pessoa 
+         // Cliente? cliente = await Clientecontrol.verificarSeEmailExiste(_emailController.text);
+          
+           
+        }else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+          content: Text("Nome de Usuario já estar sendo usado!"),
+          ),);
+        }
+
+        // Criação do cliente
+        final c = Cliente(
+          nomeCliente: _nomeController.text,
+          cpf: _cpfController.text,
+          dataNasc: _dataNasc ??
+              DateTime.now(), // Passando diretamente como DateTime?
+          usuario: _usuarioController.text,
+          emailUsuario: _emailController.text,
+          senhaUsuario: _senhaController.text,
+          telefone: _telefoneController.text,
+        );
+
+        Clientecontroller dao = Clientecontroller();
+
+        //salvar o cliente no banco de dados
+        int idClienteRecebido = await dao.salvaCli(c);
+        c.idCliente = idClienteRecebido;
+        print(c.toMap());
 
         // Exibir uma mensagem de sucesso
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content:
-              Text('Usuário ${usuario.nomeUsuario} cadastrado com sucesso!')),
-       );
+            content: Text('Cliente ${c.nomeCliente} cadastrado com sucesso!'),
+          ),
+        );
+
+        // Limpar o formulário após o cadastro
         _limparForm();
       }
-    }catch(e){
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content:
-              Text('Não foi possivel cadastrar usuario'),
-              backgroundColor: Colors.red)
-       );
-
+        SnackBar(
+          content: Text("Não foi possível cadastrar o cliente! $e"),
+          duration: Duration(seconds: 20),
+        ),
+      );
     }
-   
   }
 
   // Função para limpar o formulário
@@ -94,13 +105,16 @@ class _CadastroUsuarioScreenState extends State<CadastroUsuario> {
     _emailController.clear();
     _senhaController.clear();
     _telefoneController.clear();
+    setState(() {
+      _dataNasc = null;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro de Usuário'),
+        title: Text('Cadastro de Cliente'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -140,7 +154,7 @@ class _CadastroUsuarioScreenState extends State<CadastroUsuario> {
                       decoration: InputDecoration(
                         labelText: _dataNasc == null
                             ? 'Data de Nascimento'
-                            : 'Data de Nascimento: ${_formatoData.formataData(_dataNasc!)}',
+                            : 'Data de Nascimento: ${DateFormat('dd/MM/yyyy').format(_dataNasc!)}',
                       ),
                       validator: (value) {
                         if (_dataNasc == null) {
@@ -150,21 +164,6 @@ class _CadastroUsuarioScreenState extends State<CadastroUsuario> {
                       },
                     ),
                   ),
-                ),
-                DropdownButtonFormField<TipoUsuario>(
-                  value: _tipoUsuario,
-                  decoration: InputDecoration(labelText: 'Tipo de Usuário'),
-                  items: TipoUsuario.values.map((TipoUsuario tipo) {
-                    return DropdownMenuItem<TipoUsuario>(
-                      value: tipo,
-                      child: Text(tipo.toString().split('.').last),
-                    );
-                  }).toList(),
-                  onChanged: (TipoUsuario? newValue) {
-                    setState(() {
-                      _tipoUsuario = newValue!;
-                    });
-                  },
                 ),
                 TextFormField(
                   controller: _usuarioController,
@@ -203,7 +202,7 @@ class _CadastroUsuarioScreenState extends State<CadastroUsuario> {
                 ),
                 TextFormField(
                   controller: _telefoneController,
-                  decoration: InputDecoration(labelText: 'telefone'),
+                  decoration: InputDecoration(labelText: 'Telefone'),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
@@ -217,4 +216,4 @@ class _CadastroUsuarioScreenState extends State<CadastroUsuario> {
       ),
     );
   }
-}*/
+}
