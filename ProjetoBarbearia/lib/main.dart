@@ -1,4 +1,5 @@
 import 'package:app/view/Cadastro.dart';
+import 'package:app/view/clienteView/menuCliente.dart';
 import 'package:flutter/material.dart';
 import 'view/Login.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Login(),          // Tela de Login
-        '/signup': (context) => CadastroClienteScreen(), // Tela de Cadastro
+        '/signup': (context) => Menucliente(), //CadastroClienteScreen(), // Tela de Cadastro
       },
     );
   }

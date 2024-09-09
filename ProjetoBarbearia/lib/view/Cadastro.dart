@@ -45,44 +45,54 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
         Cliente? cliente = await Clientecontrol.verificarSeUsuarioExiste(_usuarioController.text);
 
         if (cliente == null) { //if para não cadastrar usuario ja cadastrado por outra pessoa 
-         // Cliente? cliente = await Clientecontrol.verificarSeEmailExiste(_emailController.text);
-          
+
+          //verificar email
+          Cliente? clienteEmail = await Clientecontrol.verificarSeEmailExiste(_emailController.text);
+          if (clienteEmail == null) {
+            //ferificar cpf
+            Cliente? clienteCpf = await Clientecontrol.verificarSeCpfExiste(_cpfController.text);
+
+            if (clienteCpf == null) {
+              // Criação do cliente
+              final c = Cliente(
+              nomeCliente: _nomeController.text,
+              cpf: _cpfController.text,
+              dataNasc: _dataNasc ??
+              DateTime.now(), // Passando diretamente como DateTime?
+              usuario: _usuarioController.text,
+              emailUsuario: _emailController.text,
+              senhaUsuario: _senhaController.text,
+              telefone: _telefoneController.text,
+              );
+
+              Clientecontroller dao = Clientecontroller();
+
+              //salvar o cliente no banco de dados
+              int idClienteRecebido = await dao.salvaCli(c);
+              c.idCliente = idClienteRecebido;
+              print(c.toMap());
+
+              // Exibir uma mensagem de sucesso
+              ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Cliente ${c.nomeCliente} cadastrado com sucesso!'),
+              ),);
+
+              // Limpar o formulário após o cadastro
+              _limparForm();
+            } else {
+              
+            }
+
+          } else{
+            ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Email ja Cadastrado!"),),);
+          }
            
         }else{
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-          content: Text("Nome de Usuario já estar sendo usado!"),
-          ),);
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Nome de Usuario já estar sendo usado!"),),
+          );
         }
-
-        // Criação do cliente
-        final c = Cliente(
-          nomeCliente: _nomeController.text,
-          cpf: _cpfController.text,
-          dataNasc: _dataNasc ??
-              DateTime.now(), // Passando diretamente como DateTime?
-          usuario: _usuarioController.text,
-          emailUsuario: _emailController.text,
-          senhaUsuario: _senhaController.text,
-          telefone: _telefoneController.text,
-        );
-
-        Clientecontroller dao = Clientecontroller();
-
-        //salvar o cliente no banco de dados
-        int idClienteRecebido = await dao.salvaCli(c);
-        c.idCliente = idClienteRecebido;
-        print(c.toMap());
-
-        // Exibir uma mensagem de sucesso
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Cliente ${c.nomeCliente} cadastrado com sucesso!'),
-          ),
-        );
-
-        // Limpar o formulário após o cadastro
-        _limparForm();
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
