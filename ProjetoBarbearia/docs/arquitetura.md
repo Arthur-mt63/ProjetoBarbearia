@@ -19,10 +19,11 @@ Para a Criação do Navalha foi utilizado a arquitettura MVC:
 
 # Banco de Dados
 
+![Diagrama Conceitual Banco de Dados](docs/casodeuso.png)
+
 'Tabela Usuário'
 - **id** : idenficador único para o usuário
 - **nome** : nome do usuário
 - **cpf** : cpf do usuário
 - **idusuario** : armazena o identificado do usuário a qual o cadastro pertence.
 
-' 

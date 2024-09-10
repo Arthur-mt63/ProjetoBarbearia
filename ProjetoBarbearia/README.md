@@ -1,16 +1,31 @@
-# app
+# DOCUMENTAÇÃO DO PROJETO
 
-A new Flutter project.
+# Barber Shop
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## INTRODUÇÃO
 
-A few resources to get you started if this is your first Flutter project:
+O Barber Shop é um aplicativo mobile desenvolvido em Flutter, que oferece uma experiência completa tanto para clientes quanto para barbeiros.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![Saiba Mais](ProjetoBarbearia/docs/introducao.md)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ARQUITETURA
+
+Para a Criação do Navalha foi utilizado a arquitettura MVC:
+
+- **Model** : Pasta na qual fica os arquivos de armazenamento de dados do (Usuário, Agendamento, Cadastro).
+- **View** : Pasta na qual fica a interface da aplicação. Telas de Cadastros de , Tela de Login, 
+- **Control** : Pasta que realiza o processo de intermediação entre **Mpdel** e **View**, sendo responsável pelo gerenciamento dos dados entre telas e banco de dados.
+
+![Saiba Mais](ProjetoBarbearia/docs/arquitetura.md)
+
+## FUNCIONALIDADES
+
+<!-- Explicar as funcionalidades do aplicativo. -->
+
+O aplicativo de barbearia, vendas de produtos e serviços oferece as seguintes funcionalidades principais:
+
+<!-- Código para por imagens dentro da documentação -->
+![Diagrama de caso de uso](docs/casodeuso.png)
+
+![Saiba Mais](ProjetoBarbearia/docs/funcionalidade.md)
