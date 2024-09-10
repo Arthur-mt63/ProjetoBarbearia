@@ -41,64 +41,80 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
   Future<void> _processarFormulario() async {
     try {
       if (_formKey.currentState?.validate() ?? false) {
-        //verificar o nome Usuario
-        Cliente? cliente = await Clientecontrol.verificarSeUsuarioExiste(_usuarioController.text);
+        // Verificar se CPF, e-mail e usuário já existem
+        final clienteExiste =
+            await Clientecontrol.verificarSeCpfExiste(_cpfController.text);
+        final emailExiste =
+            await Clientecontrol.verificarSeEmailExiste(_emailController.text);
+        final usuarioExiste = await Clientecontrol.verificarSeUsuarioExiste(
+            _usuarioController.text);
 
-        if (cliente == null) { //if para não cadastrar usuario ja cadastrado por outra pessoa 
-
-          //verificar email
-          Cliente? clienteEmail = await Clientecontrol.verificarSeEmailExiste(_emailController.text);
-          if (clienteEmail == null) {
-            //ferificar cpf
-            Cliente? clienteCpf = await Clientecontrol.verificarSeCpfExiste(_cpfController.text);
-
-            if (clienteCpf == null) {
-              // Criação do cliente
-              final c = Cliente(
-              nomeCliente: _nomeController.text,
-              cpf: _cpfController.text,
-              dataNasc: _dataNasc ??
-              DateTime.now(), // Passando diretamente como DateTime?
-              usuario: _usuarioController.text,
-              emailUsuario: _emailController.text,
-              senhaUsuario: _senhaController.text,
-              telefone: _telefoneController.text,
-              );
-
-              Clientecontroller dao = Clientecontroller();
-
-              //salvar o cliente no banco de dados
-              int idClienteRecebido = await dao.salvaCli(c);
-              c.idCliente = idClienteRecebido;
-              print(c.toMap());
-
-              // Exibir uma mensagem de sucesso
-              ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Cliente ${c.nomeCliente} cadastrado com sucesso!'),
-              ),);
-
-              // Limpar o formulário após o cadastro
-              _limparForm();
-            } else {
-              
-            }
-
-          } else{
-            ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Email ja Cadastrado!"),),);
-          }
-           
-        }else{
+        if (clienteExiste != null) {
           ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Nome de Usuario já estar sendo usado!"),),
+            SnackBar(
+              content: Text('CPF já cadastrado!'),
+              backgroundColor: Colors.red,
+
+            ),
           );
+          return;
         }
+
+        if (emailExiste != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('E-mail já cadastrado!'),
+              backgroundColor: Colors.red,
+            ),
+          );
+          return;
+        }
+
+        if (usuarioExiste != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Nome de usuário já está sendo usado!'),
+              backgroundColor: Colors.red,
+            ),
+          );
+          return;
+        }
+
+        // Criação do cliente
+        final c = Cliente(
+          nomeCliente: _nomeController.text,
+          cpf: _cpfController.text,
+          dataNasc: _dataNasc ?? DateTime.now(),
+          usuario: _usuarioController.text,
+          emailUsuario: _emailController.text,
+          senhaUsuario: _senhaController.text,
+          telefone: _telefoneController.text,
+        );
+
+        Clientecontroller dao = Clientecontroller();
+
+        //salvar o cliente no banco de dados
+        int idClienteRecebido = await dao.salvaCli(c);
+        c.idCliente = idClienteRecebido;
+        print(c.toMap());
+
+        // Exibir uma mensagem de sucesso
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Cliente ${c.nomeCliente} cadastrado com sucesso!'),
+            backgroundColor: const Color.fromARGB(255, 3, 228, 82),
+          ),
+        );
+
+        // Limpar o formulário após o cadastro
+        _limparForm();
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Não foi possível cadastrar o cliente! $e"),
-          duration: Duration(seconds: 20),
+          duration: Duration(seconds: 10),
+          backgroundColor: Colors.red,
         ),
       );
     }
@@ -181,7 +197,7 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira um nome de usuário';
-                    }
+                    } 
                     return null;
                   },
                 ),

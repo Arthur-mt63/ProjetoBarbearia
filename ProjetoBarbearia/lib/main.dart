@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Login(),          // Tela de Login
-        '/signup': (context) => Menucliente(), //CadastroClienteScreen(), // Tela de Cadastro
+        '/signup': (context) => CadastroClienteScreen(), // Tela de Cadastro
       },
     );
   }
