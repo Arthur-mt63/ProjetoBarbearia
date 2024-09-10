@@ -1,0 +1,51 @@
+name: app
+description: "A new Flutter project."
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using flutter pub publish. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # SQLite database package
+  sqflite: ^2.0.0+4
+  
+  # Path manipulation package
+  path: ^1.8.3
+  
+  # Internationalization package
+  intl: ^0.18.1
+  
+  # Image picker package
+  image_picker: ^0.8.5+3
+  
+  # Camera package for capturing photos
+  camera: ^0.10.0
+  
+  # Cupertino icons package for iOS style icons
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Lints package for good coding practices
+  flutter_lints: ^4.0.0
+
+flutter:
+  # Include the Material Icons font
+  uses-material-design: true
+
+  # Adding image assets
+  assets:
+    - assets/Barbearia1.jpeg
+    - assets/corte1.png
+    - assets/corte2.png
+    - assets/corte3.png
