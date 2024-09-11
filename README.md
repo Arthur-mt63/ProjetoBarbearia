@@ -5,7 +5,7 @@
 # Introdução 
 O projeto *Navlha App* é um aplicativo inovador desenvolvido para transformar a experiência de gestão e atendimento em barbearias. Criado com o framework Flutter e utilizando a linguagem Dart, o aplicativo oferece uma interface moderna e intuitiva, pensada para facilitar tanto o dia a dia dos barbeiros quanto o agendamento de serviços pelos clientes.
 
-![Saiba Mais](ProjetoBarbearia/docs/introducao.md)
+![Saiba Mais](docs/introducao.md)
 
 ## Arquitetura
 
@@ -17,12 +17,12 @@ Para a criação do *Navalha App*, foi utilizada a arquitetura **MVC** (Model-Vi
 
 3. **Controller (Controlador)**: O Controller atua como um intermediário entre o Model e a View. Ele processa as entradas do usuário, interage com o Model para obter ou atualizar dados, e instrui a View sobre como apresentar essas informações. No *Navalha App*, o Controller garante que a lógica de negócios seja aplicada corretamente e que as mudanças no estado do aplicativo sejam refletidas na interface do usuário de maneira eficiente.
 
-![Saiba Mais](ProjetoBarbearia/docs/arquitetura.md)
+![Saiba Mais](docs/arquitetura.md)
 
 # Funcionalidades 
 
 O *Navalha App* foi desenvolvido para atender às principais necessidades de gestão e operação de uma barbearia moderna. As funcionalidades básicas do aplicativo incluem:
 
-![Diagrama de Casod de Uso](ProjetoBarbearia/docs/CasoDeUso.jpeg)
+![Diagrama de Casod de Uso](docs/CasoDeUso.jpeg)
 
-![Saiba Mais](ProjetoBarbearia/docs/funcionalidades.md)
+![Saiba Mais](docs/funcionalidades.md)
