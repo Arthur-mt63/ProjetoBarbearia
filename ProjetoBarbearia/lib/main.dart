@@ -1,4 +1,6 @@
 import 'package:app/view/Cadastro.dart';
+import 'package:app/view/Escolha.dart';
+import 'package:app/view/EscolhaPerfil.dart';
 import 'package:app/view/clienteView/menuCliente.dart';
 import 'package:flutter/material.dart';
 import 'view/Login.dart';
@@ -24,7 +26,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Login(),          // Tela de Login
-        '/signup': (context) => CadastroClienteScreen(), // Tela de Cadastro
+        '/sign': (context) => CadastroClienteScreen(), // Tela de Cadastro
+        '/home': (context) => Menucliente(), // Tela Inicial do Cliente
+        '/Escolha': (context) => EscolhaTela(), // Tela de Escolha de Perfil
+        '/signup':(context) => EscolhaPerfil(),
       },
     );
   }

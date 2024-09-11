@@ -1,22 +1,6 @@
-# documantaçao do projeto
+# Funcionalidades Básicas
 
-# Navalha  app
-
-## introduçao 
-O Navalha app é um aplicativo desenvolvido para facilitar a conexão entre clientes e barbearias, trazendo uma solução prática para quem busca serviços de qualidade em locais próximos. 
-![Saiba mais](PROJETO APP/docs/introducao.md)
-## Arquitetura 
-
-Model (Modelo): No *Navalha App, o componente Model é responsável por representar a lógica de negócios e os dados da aplicação. Ele gerencia as informações relacionadas aos usuários, barbearias, serviços, agendamentos e vendas, bem como a interação com o banco de dados SQLite. O Model inclui classes como Usuario, que encapsulam os dados e métodos necessários para a manipulação dessas informações, além de garantir a integridade e consistência dos dados.
-
-View (Visão): O componente View é responsável pela interface com o usuário (UI) do *Navalha App. As Views são implementadas como telas em Flutter, onde cada tela é construída como um StatefulWidget separado. Estas telas exibem os dados fornecidos pelo Model e permitem que o usuário interaja com a aplicação de forma intuitiva e visualmente atraente, seguindo a paleta de cores estabelecida para o aplicativo.
-
-Controller (Controlador): O Controller atua como um intermediário entre o Model e a View. Ele processa as entradas do usuário, interage com o Model para obter ou atualizar dados, e instrui a View sobre como apresentar essas informações. No *Navalha App, o Controller garante que a lógica de negócios seja aplicada corretamente e que as mudanças no estado do aplicativo sejam refletidas na interface do usuário de maneira eficiente.
-
-## fincionalidades
-
-![Diagrama de Caso de Uso](docs/CasoDeUso.jpeg)
-![Diagrama logico banco de dados](docs/DiagramaLogicoprojetoBarbearia.png)
+![Diagrama de Casdo de Uso](docs/CasoDeUso.jpeg)
 
 O Navalha App foi desenvolvido para atender às principais necessidades de gestão e operação de uma barbearia moderna. As funcionalidades básicas do aplicativo incluem:
 

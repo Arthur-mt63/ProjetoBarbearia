@@ -1,6 +1,7 @@
 import 'package:app/control/loginController.dart';
 import 'package:app/model/cliente.dart';
 import 'package:app/view/Cadastro.dart';
+import 'package:app/view/clienteView/menuCliente.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -26,7 +27,7 @@ class _LoginState extends State<Login> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => CadastroClienteScreen(), // Próxima tela
+              builder: (context) => Menucliente(), // Próxima tela
             ),
           );
         } else {
