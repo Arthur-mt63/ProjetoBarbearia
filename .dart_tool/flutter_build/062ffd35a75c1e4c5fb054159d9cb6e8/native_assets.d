@@ -1,0 +1,1 @@
+ C:\\Users\\devmat\\Documents\\ProjetoBarbearia\\ProjetoBarbearia\\.dart_tool\\flutter_build\\062ffd35a75c1e4c5fb054159d9cb6e8\\native_assets.yaml: 
